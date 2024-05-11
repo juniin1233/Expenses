@@ -52,6 +52,7 @@ class _TransactionFormState extends State<TransactionForm> {
               ),
               // Colocando o parametro _ para identificar que não usaremos esse parametro 
               onSubmitted: (_) => _submittForm(),
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
