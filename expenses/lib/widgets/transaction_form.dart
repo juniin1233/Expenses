@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 
-class TransactionForm extends StatelessWidget {
-  TransactionForm({super.key, required this.onSubmit});
+class TransactionForm extends StatefulWidget {
+  const TransactionForm({super.key, required this.onSubmit});
 
-  final titleController = TextEditingController();
-  final valueController = TextEditingController();
-
-  // Função vai ser passada pela pai
   final void Function(String, double) onSubmit;
 
+  @override
+  State<TransactionForm> createState() => _TransactionFormState();
+}
+
+class _TransactionFormState extends State<TransactionForm> {
+  final titleController = TextEditingController();
+
+  final valueController = TextEditingController();
+
   // Colocamos essa função isolada, para podermos usar no TextInput.. Assim podemos utilizar a mesma função(codigo) em mais lugares
-  
   _submittForm() {
     final title = titleController.text;
     // Pegando o valor digitando no input e transformando ele em um número double. Se ele não foi um número.. Subistituir por 0.0(ZERO ponto ZERO)
@@ -21,7 +25,7 @@ class TransactionForm extends StatelessWidget {
       return;
     }
 
-    onSubmit(title, value);
+    widget.onSubmit(title, value);
   }
 
   @override
@@ -53,11 +57,11 @@ class TransactionForm extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
+                  onPressed: _submittForm,
                   child: const Text(
                     'Nova Transação',
                     style: TextStyle(color: Colors.purple),
                   ),
-                  onPressed: _submittForm,
                 ),
               ],
             ),

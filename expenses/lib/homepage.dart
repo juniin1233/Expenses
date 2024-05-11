@@ -7,7 +7,7 @@ import 'package:expenses/widgets/transaction_list.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({super.key});
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -59,17 +59,17 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: [
             IconButton(
               onPressed: () => _openTransactionFormModal(context),
-              icon: Icon(Icons.add),
+              icon: const Icon(Icons.add),
             ),
           ],
           backgroundColor: Colors.blue,
-          title: Text("Despesas Pessoais"),
+          title: const Text("Despesas Pessoais"),
         ),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TransactionGrafico(),
+              const TransactionGrafico(),
                 TransactionList(transactions: _transactions),
             ],
           ),
