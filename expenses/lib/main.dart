@@ -10,11 +10,18 @@ class Expenses extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      home: const MyHomePage(),
+      theme: ThemeData(
+        fontFamily: 'Quicksand',
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontSize: 25,
+            fontFamily: 'OpenSans'
+          ),
+        ),
+      ),
     );
   }
 }
-
-
