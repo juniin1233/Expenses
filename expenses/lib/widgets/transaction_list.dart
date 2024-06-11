@@ -9,82 +9,87 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 300,
-        child: transactions.isEmpty
-            ? Column(
-                children: [
-                  const Text(
-                    "Nenhuma Transação Cadastrada",
+      height: 300,
+      child: transactions.isEmpty
+          ? Column(
+              children: [
+                const Text(
+                  "Nenhuma Transação Cadastrada",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  height: 200,
+                  child: Image.asset(
+                    'asset/img/waiting.png',
+                    fit: BoxFit.cover,
                   ),
-                  const SizedBox(height: 20,),
-                  SizedBox(
-                      height: 200,
-                      child: Image.asset(
-                        'asset/img/waiting.png',
-                        fit: BoxFit.cover,
-                      ))
-                ],
-              )
-            : ListView.builder(
-                itemCount: transactions.length,
-                itemBuilder: (ctx, i) {
-                  final e = transactions[i];
-                  return Card(
-                    child: Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 2,
-                              color: Colors.purple,
-                            ),
+                )
+              ],
+            )
+          : ListView.builder(
+              itemCount: transactions.length,
+              itemBuilder: (ctx, i) {
+                final e = transactions[i];
+                return Card(
+                  child: Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 2,
+                            color: Colors.purple,
                           ),
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 15,
-                            vertical: 10,
-                          ),
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                            /*
+                        ),
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 10,
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          /*
                         
                           Esse metodo *.toStringAsFixed()* Recebe um valor int.
                           Funciona quantos casas decimais estaram no número
 
                         */
-                            'R\$ ${e.value.toStringAsFixed(2)}',
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                color: Colors.purple),
-                          ),
+                          'R\$ ${e.value.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.purple),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              e.title,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            e.title,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
                             ),
-                            Text(
-                              // e.date.toString(),
-                              // Melhor jeito de formatar data
-                              // h = hora em 12h e H = hora em 24h
-                              // m = minutos e M = Mês
-                              // d = dia do mês e D = dia do ano
-                              // E = Dia da Semana
+                          ),
+                          Text(
+                            // e.date.toString(),
+                            // Melhor jeito de formatar data
+                            // h = hora em 12h e H = hora em 24h
+                            // m = minutos e M = Mês
+                            // d = dia do mês e D = dia do ano
+                            // E = Dia da Semana
 
-                              DateFormat('dd MMMM y').format(e.date),
-                              // e.date.toString(),
-                              style: const TextStyle(color: Colors.grey),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  );
-                }));
+                            DateFormat('dd MMMM y').format(e.date),
+                            // e.date.toString(),
+                            style: const TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                );
+              },
+            ),
+    );
   }
 }

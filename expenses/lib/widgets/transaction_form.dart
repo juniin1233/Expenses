@@ -10,8 +10,8 @@ class TransactionForm extends StatefulWidget {
 }
 
 class _TransactionFormState extends State<TransactionForm> {
-  final titleController = TextEditingController();
 
+  final titleController = TextEditingController();
   final valueController = TextEditingController();
 
   // Colocamos essa função isolada, para podermos usar no TextInput.. Assim podemos utilizar a mesma função(codigo) em mais lugares
@@ -24,7 +24,7 @@ class _TransactionFormState extends State<TransactionForm> {
     if(title.isEmpty || value <= 0){
       return;
     }
-
+    
     widget.onSubmit(title, value);
   }
 
