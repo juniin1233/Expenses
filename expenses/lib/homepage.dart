@@ -29,8 +29,10 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
   ];
 
+  // Função para pegar as transações mais recentes
   List<Transactions> get _recentTransaction {
     return _transactions.where((tr) {
+      // metodo .isAfter é uma função usada para datas.. Ela retorna apenas dados que tiver dentro da data que foi passada. No exemplo.. Apenas as que foram 7 dias atrás!
       return tr.date.isAfter(DateTime.now().subtract(const Duration(days: 7)));
     }).toList();
   }
