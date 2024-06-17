@@ -38,22 +38,34 @@ class Chart extends StatelessWidget {
     });
   }
 
+  double get _weekTotalValue {
+    return grouepTransactions.fold(0.0, (sum, tr){
+      return sum + (tr['value'] as double);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     grouepTransactions;
-    return Card(
-      elevation: 6,
-      margin: const EdgeInsets.all(15),
-      child: Row(
-        // Mapeando dados para um Widgets
-        children: grouepTransactions.map((tr) {
-          return ChartBar(
-            // Convertendo uma variavel do tipo objeto para o tipo String/double apenas com o prefixo "as"
-            label: tr['day'] as String,
-            value: tr['value'] as double,
-            percentage: 0.3,
-          );
-        }).toList(),
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Card(
+        elevation: 6,
+        margin: const EdgeInsets.all(15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          // Mapeando dados para um Widgets
+          children: grouepTransactions.map((tr) {
+            return Flexible(
+              fit: FlexFit.tight,
+              child: ChartBar(
+                // Convertendo uma variavel do tipo objeto para o tipo String/double apenas com o prefixo "as"
+                label: tr['day'] as String,
+                value: tr['value'] as double,
+                percentage: (tr['value'] as double) / _weekTotalValue,
+              ),
+            );
+          }).toList(),
+        ),
       ),
     );
   }
