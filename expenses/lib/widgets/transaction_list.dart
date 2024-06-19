@@ -31,8 +31,48 @@ class TransactionList extends StatelessWidget {
           : ListView.builder(
               itemCount: transactions.length,
               itemBuilder: (ctx, i) {
-                final e = transactions[i];
+                final tr = transactions[i];
                 return Card(
+                  elevation: 5,
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 5,
+                  ),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.purple,
+                      radius: 30,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: FittedBox(
+                          child: Text(
+                            'R\$${tr.value.toStringAsFixed(2)}',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                      tr.title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        fontFamily: 'OpenSans',
+                      ),
+                    ),
+                    subtitle: Text(DateFormat('dd MMM y').format(tr.date)),
+                  ),
+                );
+              },
+            ),
+    );
+  }
+}
+
+
+/*
+                  
+                Card(
                   child: Row(
                     children: [
                       Container(
@@ -48,13 +88,13 @@ class TransactionList extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.all(10),
                         child: Text(
-                          /*
+                        /*
                         
                           Esse metodo *.toStringAsFixed()* Recebe um valor int.
                           Funciona quantos casas decimais estaram no número
 
                         */
-                          'R\$ ${e.value.toStringAsFixed(2)}',
+                          'R\$ ${tr.value.toStringAsFixed(2)}',
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -65,21 +105,21 @@ class TransactionList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            e.title,
+                            tr.title,
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            // e.date.toString(),
+                            // tr.date.toString(),
                             // Melhor jeito de formatar data
                             // h = hora em 12h e H = hora em 24h
                             // m = minutos e M = Mês
                             // d = dia do mês e D = dia do ano
                             // E = Dia da Semana
 
-                            DateFormat('dd MMMM y').format(e.date),
+                            DateFormat('dd MMMM y').format(tr.date),
                             // e.date.toString(),
                             style: const TextStyle(color: Colors.grey),
                           ),
@@ -88,8 +128,4 @@ class TransactionList extends StatelessWidget {
                     ],
                   ),
                 );
-              },
-            ),
-    );
-  }
-}
+*/
