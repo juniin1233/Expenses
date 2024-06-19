@@ -13,6 +13,7 @@ class TransactionForm extends StatefulWidget {
 class _TransactionFormState extends State<TransactionForm> {
   final _titleController = TextEditingController();
   final _valueController = TextEditingController();
+  // Falando que a variavel pode ser nula
   DateTime? selectDate;
 
   // Colocamos essa função isolada, para podermos usar no TextInput.. Assim podemos utilizar a mesma função(codigo) em mais lugares
@@ -80,6 +81,7 @@ class _TransactionFormState extends State<TransactionForm> {
                   Text(
                     selectDate == null
                         ? 'Nenhuma data selecionada!'
+                        // Estou afirmando que a variavel selectDate não será nula
                         : DateFormat('dd/MM/y').format(selectDate!),
                   ),
                   TextButton(
