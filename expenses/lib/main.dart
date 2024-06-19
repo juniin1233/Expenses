@@ -14,7 +14,7 @@ class Expenses extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
       theme: ThemeData(
-        fontFamily: 'Quicksand',
+        // fontFamily: 'Quicksand',
         appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(
             fontSize: 25,

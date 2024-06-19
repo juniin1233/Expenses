@@ -10,7 +10,6 @@ class TransactionForm extends StatefulWidget {
 }
 
 class _TransactionFormState extends State<TransactionForm> {
-
   final titleController = TextEditingController();
   final valueController = TextEditingController();
 
@@ -21,10 +20,10 @@ class _TransactionFormState extends State<TransactionForm> {
     final value = double.tryParse(valueController.text) ?? 0.0;
 
     // Esta fazendo uma verificação, caso o titulo estiver vazio e o valor for menor ou igual à zero
-    if(title.isEmpty || value <= 0){
+    if (title.isEmpty || value <= 0) {
       return;
     }
-    
+
     widget.onSubmit(title, value);
   }
 
@@ -50,18 +49,39 @@ class _TransactionFormState extends State<TransactionForm> {
               decoration: const InputDecoration(
                 labelText: 'Valor R\$',
               ),
-              // Colocando o parametro _ para identificar que não usaremos esse parametro 
+              // Colocando o parametro _ para identificar que não usaremos esse parametro
               onSubmitted: (_) => _submittForm(),
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+            ),
+            Container(
+              height: 70,
+              child: Row(
+                children: [
+                  const Text('Nenhuma data selecionada!'),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Selecionar Data',
+                      style: TextStyle(
+                        color: Colors.purple,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TextButton(
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.purple
+                  ),
                   onPressed: _submittForm,
                   child: const Text(
                     'Nova Transação',
-                    style: TextStyle(color: Colors.purple),
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ],
