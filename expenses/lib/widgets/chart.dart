@@ -45,7 +45,6 @@ class Chart extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
-    grouepTransactions;
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Card(
@@ -61,7 +60,7 @@ class Chart extends StatelessWidget {
                 // Convertendo uma variavel do tipo objeto para o tipo String/double apenas com o prefixo "as"
                 label: tr['day'] as String,
                 value: tr['value'] as double,
-                percentage: (tr['value'] as double) / _weekTotalValue,
+                percentage: _weekTotalValue == 0 ? 0 :(tr['value'] as double) / _weekTotalValue,
               ),
             );
           }).toList(),

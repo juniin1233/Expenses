@@ -14,20 +14,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _transactions = [
-    Transactions(
-      id: 't1',
-      title: 'Tenis de Corrida',
-      value: 350.25,
-      date: DateTime.now().subtract(const Duration(days: 3)),
-    ),
-    Transactions(
-      id: 't2',
-      title: 'Conta de Luz',
-      value: 400,
-      date: DateTime.now().subtract(const Duration(days: 1)),
-    ),
-  ];
+  final _transactions = <Transactions>[];
 
   // Função para pegar as transações mais recentes
   List<Transactions> get _recentTransaction {
@@ -37,12 +24,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  _addTransaction(String title, double value) {
+  _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transactions(
       id: Random().nextDouble().toString(),
       title: title,
       value: value,
-      date: DateTime.now(),
+      date: date,
     );
 
     // A variavel newTransaction esta sendo atualizada e depois sendo inserida no lista _transaction
@@ -53,11 +40,19 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.of(context).pop();
   }
 
+  _removeTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((tr) => tr.id == id);
+    });
+  }
+
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (_) {
-        return TransactionForm(onSubmit: _addTransaction,);
+        return TransactionForm(
+          onSubmit: _addTransaction,
+        );
       },
     );
   }
@@ -80,7 +75,10 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Chart(recentTransaction: _recentTransaction),
-              TransactionList(transactions: _transactions),
+              TransactionList(
+                transactions: _transactions,
+                onRemove: _removeTransaction,
+              ),
             ],
           ),
         ),

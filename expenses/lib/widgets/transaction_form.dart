@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 class TransactionForm extends StatefulWidget {
   const TransactionForm({super.key, required this.onSubmit});
 
-  final void Function(String, double) onSubmit;
+  final void Function(String, double, DateTime) onSubmit;
 
   @override
   State<TransactionForm> createState() => _TransactionFormState();
@@ -14,7 +14,7 @@ class _TransactionFormState extends State<TransactionForm> {
   final _titleController = TextEditingController();
   final _valueController = TextEditingController();
   // Falando que a variavel pode ser nula
-  DateTime? selectDate;
+  DateTime _selectDate = DateTime.now();
 
   // Colocamos essa função isolada, para podermos usar no TextInput.. Assim podemos utilizar a mesma função(codigo) em mais lugares
   _submittForm() {
@@ -27,7 +27,7 @@ class _TransactionFormState extends State<TransactionForm> {
       return;
     }
 
-    widget.onSubmit(title, value);
+    widget.onSubmit(title, value, _selectDate);
   }
 
   _showDatePicker() {
@@ -42,7 +42,7 @@ class _TransactionFormState extends State<TransactionForm> {
       }
 
       setState(() {
-        selectDate = picker;
+        _selectDate = picker;
       });
     });
   }
@@ -79,10 +79,7 @@ class _TransactionFormState extends State<TransactionForm> {
               child: Row(
                 children: [
                   Text(
-                    selectDate == null
-                        ? 'Nenhuma data selecionada!'
-                        // Estou afirmando que a variavel selectDate não será nula
-                        : DateFormat('dd/MM/y').format(selectDate!),
+                    'Data Selecionada: ${DateFormat('dd/MM/y').format(_selectDate)}',
                   ),
                   TextButton(
                     onPressed: _showDatePicker,
