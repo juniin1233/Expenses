@@ -60,31 +60,37 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.purple,
-          actions: [
-            IconButton(
-              onPressed: () => _openTransactionFormModal(context),
-              icon: const Icon(Icons.add),
+      appBar: AppBar(
+        backgroundColor: Colors.purple,
+        actions: [
+          IconButton(
+            onPressed: () => _openTransactionFormModal(context),
+            icon: const Icon(Icons.add),
+          ),
+        ],
+        title: const Text("Despesas Pessoais"),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Chart(recentTransaction: _recentTransaction),
+            TransactionList(
+              transactions: _transactions,
+              onRemove: _removeTransaction,
             ),
           ],
-          title: const Text("Despesas Pessoais"),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Chart(recentTransaction: _recentTransaction),
-              TransactionList(
-                transactions: _transactions,
-                onRemove: _removeTransaction,
-              ),
-            ],
-          ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.purple,
+        onPressed: () => _openTransactionFormModal(context),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => _openTransactionFormModal(context),
-          child: const Icon(Icons.add),
-        ));
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
   }
 }
