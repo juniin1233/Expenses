@@ -14,7 +14,44 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _transactions = <Transactions>[];
+  final _transactions = <Transactions>[
+    Transactions(
+      id: '1',
+      title: 'Conta de Luz',
+      value: 320.00,
+      date: DateTime.now(),
+    ),
+    Transactions(
+      id: '2',
+      title: 'Conta de Agua',
+      value: 50.25,
+      date: DateTime.now().subtract(Duration(days: 5)),
+    ),
+    Transactions(
+      id: '3',
+      title: 'Fatura do Cartão',
+      value: 1500.00,
+      date: DateTime.now().subtract(Duration(days: 1)),
+    ),
+    Transactions(
+      id: '4',
+      title: 'Fatura Vivo',
+      value: 33.30,
+      date: DateTime.now().subtract(Duration(days: 2)),
+    ),
+    Transactions(
+      id: '5',
+      title: 'Lanche',
+      value: 20.00,
+      date: DateTime.now(),
+    ),
+    Transactions(
+      id: '6',
+      title: 'Lazer',
+      value: 320.00,
+      date: DateTime.now().subtract(Duration(days: 3)),
+    ),
+  ];
 
   // Função para pegar as transações mais recentes
   List<Transactions> get _recentTransaction {
@@ -59,8 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+
+    final appBar = AppBar(
         backgroundColor: Colors.purple,
         actions: [
           IconButton(
@@ -69,15 +106,28 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
         title: const Text("Despesas Pessoais"),
-      ),
+      );
+
+    final availableHeight = MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - appBar.preferredSize.height;
+
+    return Scaffold(
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Chart(recentTransaction: _recentTransaction),
-            TransactionList(
-              transactions: _transactions,
-              onRemove: _removeTransaction,
+            SizedBox(
+              height: availableHeight * 0.25,
+              child: Chart(
+                recentTransaction: _recentTransaction,
+              ),
+            ),
+            SizedBox(
+              height: availableHeight * 0.75,
+              child: TransactionList(
+                transactions: _transactions,
+                onRemove: _removeTransaction,
+              ),
             ),
           ],
         ),
