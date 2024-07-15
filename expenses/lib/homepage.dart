@@ -14,44 +14,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _transactions = <Transactions>[
-    Transactions(
-      id: '1',
-      title: 'Conta de Luz',
-      value: 320.00,
-      date: DateTime.now(),
-    ),
-    Transactions(
-      id: '2',
-      title: 'Conta de Agua',
-      value: 50.25,
-      date: DateTime.now().subtract(Duration(days: 5)),
-    ),
-    Transactions(
-      id: '3',
-      title: 'Fatura do Cartão',
-      value: 1500.00,
-      date: DateTime.now().subtract(Duration(days: 1)),
-    ),
-    Transactions(
-      id: '4',
-      title: 'Fatura Vivo',
-      value: 33.30,
-      date: DateTime.now().subtract(Duration(days: 2)),
-    ),
-    Transactions(
-      id: '5',
-      title: 'Lanche',
-      value: 20.00,
-      date: DateTime.now(),
-    ),
-    Transactions(
-      id: '6',
-      title: 'Lazer',
-      value: 320.00,
-      date: DateTime.now().subtract(Duration(days: 3)),
-    ),
-  ];
+  final _transactions = <Transactions>[];
+  bool _showChart = false;
 
   // Função para pegar as transações mais recentes
   List<Transactions> get _recentTransaction {
@@ -96,19 +60,38 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
+    bool isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
     final appBar = AppBar(
-        backgroundColor: Colors.purple,
-        actions: [
-          IconButton(
-            onPressed: () => _openTransactionFormModal(context),
-            icon: const Icon(Icons.add),
-          ),
-        ],
-        title: const Text("Despesas Pessoais"),
-      );
+      backgroundColor: Colors.purple,
+      actions: [
+        IconButton(
+          onPressed: () => _openTransactionFormModal(context),
+          icon: const Icon(Icons.add),
+        ),
+        if (isLandscape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Mostrar Gráfico',
+                  ),
+                  Switch(
+                    value: _showChart,
+                    onChanged: (value) {
+                      setState(() {
+                        _showChart = value;
+                      });
+                    },
+                  ),
+                ],
+              ),
+      ],
+      title: const Text("Despesas Pessoais"),
+    );
 
-    final availableHeight = MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - appBar.preferredSize.height;
+    final availableHeight = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).padding.top -
+        appBar.preferredSize.height;
 
     return Scaffold(
       appBar: appBar,
@@ -116,19 +99,22 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(
-              height: availableHeight * 0.25,
-              child: Chart(
-                recentTransaction: _recentTransaction,
+            
+            if (_showChart || !isLandscape)
+              SizedBox(
+                height: availableHeight * (isLandscape? 0.73 : 0.25),
+                child: Chart(
+                  recentTransaction: _recentTransaction,
+                ),
               ),
-            ),
-            SizedBox(
-              height: availableHeight * 0.75,
-              child: TransactionList(
-                transactions: _transactions,
-                onRemove: _removeTransaction,
+            if (!_showChart || !isLandscape)
+              SizedBox(
+                height: availableHeight * 0.75,
+                child: TransactionList(
+                  transactions: _transactions,
+                  onRemove: _removeTransaction,
+                ),
               ),
-            ),
           ],
         ),
       ),
