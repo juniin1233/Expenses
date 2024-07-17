@@ -49,65 +49,72 @@ class _TransactionFormState extends State<TransactionForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            TextField(
-              controller: _titleController,
-              decoration: const InputDecoration(
-                labelText: 'Título',
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: 10,
+            right: 10,
+            left: 10,
+            bottom: 10 + MediaQuery.of(context).viewInsets.bottom
+          ),
+          child: Column(
+            children: [
+              TextField(
+                controller: _titleController,
+                decoration: const InputDecoration(
+                  labelText: 'Título',
+                ),
+                // Atributo para o curso ir para o proximo campo
+                textInputAction: TextInputAction.next,
+                // onSubmitted: (_) => _submittForm(),
               ),
-              // Atributo para o curso ir para o proximo campo
-              textInputAction: TextInputAction.next,
-              onSubmitted: (_) => _submittForm(),
-            ),
-            TextField(
-              controller: _valueController,
-              decoration: const InputDecoration(
-                labelText: 'Valor R\$',
+              TextField(
+                controller: _valueController,
+                decoration: const InputDecoration(
+                  labelText: 'Valor R\$',
+                ),
+                // Colocando o parametro _ para identificar que não usaremos esse parametro
+                onSubmitted: (_) => _submittForm(),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
               ),
-              // Colocando o parametro _ para identificar que não usaremos esse parametro
-              onSubmitted: (_) => _submittForm(),
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-            ),
-            Container(
-              height: 70,
-              child: Row(
-                children: [
-                  Text(
-                    'Data Selecionada: ${DateFormat('dd/MM/y').format(_selectDate)}',
-                  ),
-                  TextButton(
-                    onPressed: _showDatePicker,
-                    child: const Text(
-                      'Selecionar Data',
-                      style: TextStyle(
-                        color: Colors.purple,
+              Container(
+                height: 70,
+                child: Row(
+                  children: [
+                    Text(
+                      'Data Selecionada: ${DateFormat('dd/MM/y').format(_selectDate)}',
+                    ),
+                    TextButton(
+                      onPressed: _showDatePicker,
+                      child: const Text(
+                        'Selecionar Data',
+                        style: TextStyle(
+                          color: Colors.purple,
+                        ),
                       ),
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: Colors.purple),
+                    onPressed: _submittForm,
+                    child: const Text(
+                      'Nova Transação',
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(
-                  style:
-                      ElevatedButton.styleFrom(backgroundColor: Colors.purple),
-                  onPressed: _submittForm,
-                  child: const Text(
-                    'Nova Transação',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
