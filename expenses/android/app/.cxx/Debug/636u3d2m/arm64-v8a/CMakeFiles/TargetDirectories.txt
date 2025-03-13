@@ -1,0 +1,2 @@
+C:/Users/junii/Documents/Projetos/Expenses/expenses/android/app/.cxx/Debug/636u3d2m/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/junii/Documents/Projetos/Expenses/expenses/android/app/.cxx/Debug/636u3d2m/arm64-v8a/CMakeFiles/rebuild_cache.dir
